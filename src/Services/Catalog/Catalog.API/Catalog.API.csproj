@@ -9,24 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="MediatR">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\mediatr\12.4.1\lib\net6.0\MediatR.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
+    
     <ItemGroup>
       <PackageReference Include="Carter" Version="8.0.0" />
       <PackageReference Include="Marten" Version="7.34.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Include="..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

@@ -27,3 +27,19 @@ public class CreateProductCommandHandler(IDocumentSession session)
         return new CreateProductResult(product.Id);
     }
 }
+
+public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+{
+    public CreateProductCommandValidator()
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MaximumLength(200);
+
+        RuleFor(x => x.Category)
+            .NotEmpty();
+        
+        RuleFor(x => x.Price)
+            .GreaterThan(0);
+    }
+}
