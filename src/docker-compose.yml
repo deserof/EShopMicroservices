@@ -15,6 +15,26 @@ services:
     volumes:
       - postgres_catalog:/var/lib/postgresql/data/
 
+  basket-db:
+    image: postgres
+    container_name: basket-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=BasketDb
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_basket:/var/lib/postgresql/data/
+
+  distributed-cache:
+    image: redis
+    container_name: distributed-cache
+    restart: always
+    ports:
+      - "6379:6379"
+
   catalog-api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -29,5 +49,22 @@ services:
     ports:
       - "6000:8080"
 
+  basket-api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__Database=Server=basket-db;Port=5433;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail = true
+      - ConnectionStrings__Redis=distributed-cache:6379
+    depends_on:
+      - basket-db
+      - distributed-cache
+    ports:
+      - "6001:8080"
+
 volumes:
   postgres_catalog:
+  postgres_basket:
