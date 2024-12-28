@@ -64,6 +64,18 @@ services:
       - distributed-cache
     ports:
       - "6001:8080"
+    
+  discount-grpc:
+    image: ${DOCKER_REGISTRY-}discountgrpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.GRPC/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__Database=Data Source=DiscountDb;
+    ports:
+      - "6002:8080"
 
 volumes:
   postgres_catalog:
