@@ -1,3 +1,5 @@
+using Discount.GRPC;
+
 namespace Basket.API.Basket.StoreBasket;
 
 [PublicAPI]
@@ -6,7 +8,8 @@ public record StoreBasketCommand(ShoppingCart ShoppingCart) : ICommand<StoreBask
 [PublicAPI]
 public record StoreBasketResult(string UserName);
 
-public class StoreBasketHandler(IBasketRepository basketRepository) : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+public class StoreBasketHandler(IBasketRepository basketRepository, DiscountProtoService.DiscountProtoServiceClient discountProto) 
+    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
 {
     public async Task<StoreBasketResult> Handle(StoreBasketCommand commmand, CancellationToken cancellationToken)
     {
