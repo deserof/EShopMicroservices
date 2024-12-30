@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
+
 // Add services to the container.
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>

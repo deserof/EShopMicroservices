@@ -9,3 +9,7 @@ global using BuildingBlocks.Behaviours;
 global using Marten;
 global using Basket.API.Exceptions;
 global using Basket.API.Data;
+global using Serilog;
+global using BuildingBlocks.Exceptions.Handler;
+global using Discount.GRPC;
+global using Discount.GRPC;

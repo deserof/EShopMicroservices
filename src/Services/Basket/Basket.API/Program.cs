@@ -1,7 +1,6 @@
-using BuildingBlocks.Exceptions.Handler;
-using Discount.GRPC;
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 var assembly = typeof(Program).Assembly;
